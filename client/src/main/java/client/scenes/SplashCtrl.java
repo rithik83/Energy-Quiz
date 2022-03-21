@@ -20,8 +20,9 @@ import client.utils.ServerUtils;
 import commons.GameSession;
 import commons.Player;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
+import javafx.scene.layout.Region;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -37,12 +38,6 @@ public class SplashCtrl {
 
     @FXML
     private TextField usernameField;
-
-    @FXML
-    private Text duplUsername;
-
-    @FXML
-    private Text invalidUserName;
 
     @Inject
     public SplashCtrl(ServerUtils server, MainCtrl mainCtrl) {
@@ -150,26 +145,31 @@ public class SplashCtrl {
     public void showWaitingArea() {
         String newUserName = usernameField.getText();
 
-        if(isDuplInActive(newUserName)) {
-            invalidUserName.setOpacity(0);
-            duplUsername.setOpacity(1);
+        if (isDuplInActive(newUserName)) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Existing username");
+            alert.setHeaderText("Username already exists in active game session");
+            alert.setContentText("Please wait for username to be made available, or enter another username");
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.show();
             usernameField.clear();
-        }
-        else if(!isUsernameValid(newUserName)) {
-            duplUsername.setOpacity(0);
-            invalidUserName.setOpacity(1);
-            usernameField.clear();
-        }
-        else {
-            duplUsername.setOpacity(0);
-            invalidUserName.setOpacity(0);
 
-            if(isDuplInRepository(newUserName)) {
+        } else if (!isUsernameValid(newUserName)) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Invalid username");
+            alert.setHeaderText("Invalid username");
+            alert.setContentText("Username should be non-empty and only contain a combination of letters and numbers" +
+                    "Please enter another username");
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.show();
+            usernameField.clear();
+
+        } else {
+            if (isDuplInRepository(newUserName)) {
                 Player p = getDuplPlayer(newUserName);
                 p.setCurrentPoints(0);
                 server.addPlayer(1L, p);
-            }
-            else {
+            } else {
                 server.addPlayer(1L /*waiting area id*/, new Player(newUserName, 0));
             }
             var playerId = server
@@ -193,26 +193,32 @@ public class SplashCtrl {
     public void showSinglePlayer() {
         String newUserName = usernameField.getText();
 
-        if(!isUsernameValid(newUserName)) {
-            invalidUserName.setOpacity(1);
-            duplUsername.setOpacity(0);
+        if (!isUsernameValid(newUserName)) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Invalid username");
+            alert.setHeaderText("Invalid username");
+            alert.setContentText("Username should be non-empty and only contain a combination of letters and numbers. "
+                    + "Please enter another username");
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.show();
             usernameField.clear();
-        }
-        else if(isDuplInActive(newUserName)) {
-            invalidUserName.setOpacity(0);
-            duplUsername.setOpacity(1);
-            usernameField.clear();
-        }
 
-        else {
+        } else if (isDuplInActive(newUserName)) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Existing username");
+            alert.setHeaderText("Username already exists in active game session");
+            alert.setContentText("Please wait for username to be made available, or enter another username");
+            alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+            alert.show();
+            usernameField.clear();
+
+        } else {
             try {
                 saveUsername(usernameField.getText());
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            invalidUserName.setOpacity(0);
-            duplUsername.setOpacity(0);
-            if(isDuplInRepository(newUserName)) {
+            if (isDuplInRepository(newUserName)) {
                 getDuplPlayer(newUserName).setCurrentPoints(0);
             }
             GameSession newSession = new GameSession(GameSession.SessionType.SINGLEPLAYER);

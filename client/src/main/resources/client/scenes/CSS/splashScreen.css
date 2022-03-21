@@ -1,0 +1,74 @@
+.root {
+    -fx-background-color: rgba(64, 64, 64, 255);
+}
+
+.button {
+    -fx-background-color: rgba(64, 64, 64, 255);
+    -fx-border-color: rgba(219, 219, 219, 255);
+}
+
+.rectangle {
+    -fx-background-color: rgba(64, 64, 64, 255);
+    -fx-border-color: white;
+}
+
+#gameTitle {
+    -fx-font-size: 100px;
+    -fx-text-fill: rgba(157, 195, 230, 255);
+}
+
+#usernameField {
+    -fx-pref-width: 350px;
+    -fx-pref-height: 41px;
+    -fx-border-color: rgba(0, 204, 255, 255);
+    -fx-background-color: rgba(64, 64, 64, 255);
+    -fx-text-alignment: center;
+    -fx-text-fill: white;
+    -fx-highlight-text-fill: white;
+    -fx-prompt-text-alignment: center;
+    -fx-prompt-text-fill: white;
+}
+
+#splashPane {
+    -fx-background-color: rgba(64, 64, 64, 255);
+    -fx-pref-width: 1024px;
+    -fx-pref-height: 576px;
+    -fx-max-height: none;
+    -fx-max-width: none;
+    -fx-min-height: 0px;
+    -fx-min-width: 0px;
+}
+
+#singlePlayerButton {
+    -fx-font-size: 25px;
+    -fx-text-fill: black;
+    -fx-text-alignment: center;
+    -fx-pref-width: 305px;
+    -fx-pref-height: 59px;
+}
+
+#multiPlayerButton {
+    -fx-font-size: 25px;
+    -fx-text-fill: black;
+    -fx-text-alignment: center;
+    -fx-pref-width: 305px;
+    -fx-pref-height: 59px;
+}
+
+#leaderboardButton {
+    -fx-font-size: 25px;
+    -fx-text-fill: black;
+    -fx-text-alignment: center;
+    -fx-pref-width: 305px;
+    -fx-pref-height: 59px;
+}
+
+#singlePlayerButton:hover, #multiPlayerButton:hover, #leaderboardButton:hover {
+    -fx-background-color: rgba(169, 209, 142, 255);
+    -fx-text-fill: white;
+}
+
+
+
+
+

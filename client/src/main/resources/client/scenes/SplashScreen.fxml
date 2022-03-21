@@ -6,22 +6,23 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<?import javafx.scene.text.Text?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0"
-            prefWidth="720.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+
+<?import javafx.scene.shape.Rectangle?>
+<AnchorPane fx:id="splashPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="client.scenes.SplashCtrl">
-   <TextField fx:id="usernameField" layoutX="109.0" layoutY="179.0" prefHeight="38.0" prefWidth="170.0"
-              promptText="Enter a username"/>
-   <Label layoutX="80.0" layoutY="48.0" text="QUIZZZZ">
+   <TextField fx:id="usernameField" layoutX="162.0" layoutY="215.0" promptText="Enter your name here"/>
+   <Label fx:id="gameTitle" layoutX="80.0" layoutY="50.0" text="QUIZZZZ">
       <font>
          <Font size="48.0"/>
       </font>
    </Label>
-   <Button layoutX="142.0" layoutY="263.0" mnemonicParsing="false" onAction="#showSinglePlayer" text="Singleplayer"/>
-   <Button layoutX="142.0" layoutY="317.0" mnemonicParsing="false" onAction="#showWaitingArea" text="Multiplayer"/>
-   <Button layoutX="142.0" layoutY="372.0" mnemonicParsing="false" onAction="#showLeaderboard" text="Leaderboard"/>
-   <Text fx:id="duplUsername" layoutX="316.0" layoutY="203.0" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0"
-         text="Username already exists. Change to continue" wrappingWidth="270.13665771484375"/>
-   <Text fx:id="invalidUserName" layoutX="57.0" layoutY="229.0" opacity="0.0" strokeType="OUTSIDE" strokeWidth="0.0"
-         text="Username should be non-empty, and only contain letters and/or numbers."/>
+   <Button fx:id="singlePlayerButton" layoutX="173.0" layoutY="332.0" mnemonicParsing="false"
+           onAction="#showSinglePlayer" text="Single Player"/>
+   <Rectangle layoutX="478.0" layoutY="347.0" width="15.0" height="30.0" />
+   <Button fx:id="multiPlayerButton" layoutX="173.0" layoutY="450.0" mnemonicParsing="false" onAction="#showWaitingArea"
+           text="Multiplayer"/>
+   <Rectangle layoutX="478.0" layoutY="465.0" width="15.0" height="30.0" />
+   <Button fx:id="leaderboardButton" layoutX="586.0" layoutY="391.0" mnemonicParsing="false" onAction="#showLeaderboard"
+           text="Leaderboard"/>
+   <Rectangle layoutX="571.0" layoutY="405.0" width="15.0" height="30.0" />
 </AnchorPane>

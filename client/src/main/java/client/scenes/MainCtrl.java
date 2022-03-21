@@ -65,6 +65,7 @@ public class MainCtrl {
 
         this.splashCtrl = splash.getKey();
         this.splashScreen = new Scene(splash.getValue());
+        splashScreen.getStylesheets().add("client/scenes/CSS/splashScreen.css");
 
         this.multiplayerCtrl = multi.getKey();
         this.multiPlayerScreen = new Scene(multi.getValue());

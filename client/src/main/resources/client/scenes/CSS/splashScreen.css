@@ -7,7 +7,7 @@
     -fx-border-color: rgba(219, 219, 219, 255);
 }
 
-.rectangle {
+#r1, #r2, #r3 {
     -fx-background-color: rgba(64, 64, 64, 255);
     -fx-border-color: white;
 }

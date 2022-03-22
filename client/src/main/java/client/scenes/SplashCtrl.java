@@ -22,27 +22,53 @@ import commons.Player;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Region;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
+import java.nio.file.Path;
 
 public class SplashCtrl {
 
     private final ServerUtils server;
     private final MainCtrl mainCtrl;
+    private List<Image> imageList;
 
     @FXML
     private TextField usernameField;
 
+    @FXML
+    private ImageView hexagonpic;
+
+    @FXML
+    private ImageView ovalcurvepic;
+
+
     @Inject
     public SplashCtrl(ServerUtils server, MainCtrl mainCtrl) {
+
         this.server = server;
         this.mainCtrl = mainCtrl;
+
+        imageList = new ArrayList<Image>();
+        String[] splashImages = {"hexagon", "ovalcurve"};
+        ClassLoader cl = getClass().getClassLoader();
+        for (String imageName : splashImages) {
+            URL location = cl.getResource(
+                    Path.of("", "client", "scenes", "images", imageName + ".png").toString());
+            imageList.add(new Image(location.toString()));
+        }
+        this.hexagonpic = new ImageView(imageList.get(0));
+        this.ovalcurvepic = new ImageView(imageList.get(1));
     }
 
     /*

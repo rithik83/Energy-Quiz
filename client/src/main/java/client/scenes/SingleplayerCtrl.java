@@ -31,7 +31,8 @@ public class SingleplayerCtrl extends GameCtrl {
 
     @Inject
     public SingleplayerCtrl(WebSocketsUtils webSocketsUtils, GameSessionUtils gameSessionUtils,
-                            LeaderboardUtils leaderboardUtils, QuestionUtils questionUtils, MainCtrl mainCtrl, Label jokerUsage) {
+                            LeaderboardUtils leaderboardUtils, QuestionUtils questionUtils, MainCtrl mainCtrl,
+                            Label jokerUsage) {
         super(webSocketsUtils, gameSessionUtils, leaderboardUtils, questionUtils, mainCtrl);
         this.jokerUsage = jokerUsage;
     }

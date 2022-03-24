@@ -420,4 +420,9 @@ public class MultiplayerCtrl extends GameCtrl {
     public void setPlayingAgain(boolean playingAgain) {
         this.playingAgain = playingAgain;
     }
+
+    @Override
+    public void displayJokerUsage(long playerId, String jokerName) {
+
+    }
 }

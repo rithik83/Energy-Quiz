@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -25,11 +26,14 @@ public class SingleplayerCtrl extends GameCtrl {
     private TableColumn<Player, String> colName;
     @FXML
     private TableColumn<Player, String> colPoint;
+    @FXML
+    private Label jokerUsage;
 
     @Inject
     public SingleplayerCtrl(WebSocketsUtils webSocketsUtils, GameSessionUtils gameSessionUtils,
-                            LeaderboardUtils leaderboardUtils, QuestionUtils questionUtils, MainCtrl mainCtrl) {
+                            LeaderboardUtils leaderboardUtils, QuestionUtils questionUtils, MainCtrl mainCtrl, Label jokerUsage) {
         super(webSocketsUtils, gameSessionUtils, leaderboardUtils, questionUtils, mainCtrl);
+        this.jokerUsage = jokerUsage;
     }
 
     /**
@@ -39,6 +43,7 @@ public class SingleplayerCtrl extends GameCtrl {
     public void initialize(URL location, ResourceBundle resources) {
         colName.setCellValueFactory(p -> new SimpleStringProperty(p.getValue().username));
         colPoint.setCellValueFactory(q -> new SimpleStringProperty(String.valueOf(q.getValue().bestSingleScore)));
+        jokerUsage.setText("");
     }
 
     /**
@@ -99,6 +104,7 @@ public class SingleplayerCtrl extends GameCtrl {
         decreaseTimeJoker = false;
         disableButton(decreaseTimeButton, true);
         gameSessionUtils.updateTimeJokers(sessionId, 1);
+        displayJokerUsage(playerId, "IncreaseTimeJoker");
     }
 
     /**
@@ -115,4 +121,9 @@ public class SingleplayerCtrl extends GameCtrl {
         leaderboardUtils.updateSingleScore(playerId, points, isBestScore);
     }
 
+    @Override
+    public void displayJokerUsage(long playerId, String jokerName) {
+        String username = leaderboardUtils.getPlayerByIdInLeaderboard(playerId).getUsername();
+        jokerUsage.setText(username + " has used " + jokerName);
+    }
 }

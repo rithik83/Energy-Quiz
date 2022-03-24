@@ -157,4 +157,11 @@ public class Player {
         return ToStringBuilder.reflectionToString(this, MULTI_LINE_STYLE);
     }
 
+    /**
+     * the method to get the username of the player
+     * @return the username in a String
+     */
+    public String getUsername() {
+        return username;
+    }
 }

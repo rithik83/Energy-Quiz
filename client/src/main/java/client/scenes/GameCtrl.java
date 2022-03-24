@@ -753,6 +753,7 @@ public abstract class GameCtrl implements Initializable {
             default:
                 disableButton(removeOneButton, false);
         }
+        displayJokerUsage(playerId, "RemoveOneAnswerJoker");
     }
 
 
@@ -783,6 +784,7 @@ public abstract class GameCtrl implements Initializable {
         decreaseTimeJoker = false;
         disableButton(decreaseTimeButton, true);
         gameSessionUtils.updateTimeJokers(sessionId, (int) getTimeJokers() + 1);
+        displayJokerUsage(playerId, "DecreaseTimeJoker");
     }
 
     /**
@@ -793,6 +795,7 @@ public abstract class GameCtrl implements Initializable {
         doublePointsJoker = false;
         disableButton(doublePointsButton, true);
         switchStatusOfDoublePoints();
+        displayJokerUsage(playerId, "DoublePointJoker");
     }
 
     /**
@@ -835,4 +838,11 @@ public abstract class GameCtrl implements Initializable {
      * @param isBestScore the flag of the best score of the player
      */
     public abstract void updateScore(long playerId, int points, boolean isBestScore);
+
+    /**
+     * the method to display joker usage
+     * @param playerId the id of the player who has used the joker
+     * @param jokerName the name of the joker used
+     */
+    public abstract void displayJokerUsage(long playerId, String jokerName);
 }

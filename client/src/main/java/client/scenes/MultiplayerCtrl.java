@@ -67,6 +67,8 @@ public class MultiplayerCtrl extends GameCtrl {
     private Label status;
     @FXML
     private Label removedPlayers;
+    @FXML
+    private Label jokerUsage;
     private int lastDisconnectIndex;
     private Timer disconnectTimer;
     private StompSession.Subscription channel;
@@ -133,6 +135,8 @@ public class MultiplayerCtrl extends GameCtrl {
         emojiFunny.setImage(emojiImages.get(0));
         emojiSad.setImage(emojiImages.get(1));
         emojiAngry.setImage(emojiImages.get(2));
+
+        jokerUsage.setText("");
     }
 
     /**
@@ -421,8 +425,32 @@ public class MultiplayerCtrl extends GameCtrl {
         this.playingAgain = playingAgain;
     }
 
+    /**
+     * the method to display the usage of joker cards in a multiplayer game
+     * @param playerId the id of the player
+     * @param jokerName which joker card he has used
+     */
     @Override
     public void displayJokerUsage(long playerId, String jokerName) {
+        webSocketsUtils.sendJokerUsage(sessionId, playerId, jokerName);
+        jokerUsage.setText(playerId + " has used " + jokerName);
+    }
 
+    /**
+     * Register the client to receive joker usages from other players
+     */
+    public void registerForJokerUpdates() {
+        channel = this.webSocketsUtils.registerForJokerUpdates(joker -> {
+            String message = joker.username + " has used " + joker.jokerName;
+            System.out.println("Joker usage message received for the current room: " + message);
+
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    jokerUsage.setText(message);
+                }
+            }
+            );
+        }, this.sessionId);
     }
 }

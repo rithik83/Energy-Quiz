@@ -1,6 +1,7 @@
 package client.utils;
 
 import commons.Emoji;
+import commons.Joker;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.simp.stomp.StompFrameHandler;
 import org.springframework.messaging.simp.stomp.StompHeaders;
@@ -98,5 +99,29 @@ public class WebSocketsUtils {
      */
     public void sendEmoji(long sessionId, long playerId, Emoji.EmojiType emoji) {
         sendWebsocketMessage("/emoji/" + sessionId + "/send/" + playerId, emoji);
+        System.out.println("/emoji/" + sessionId + "/send/" + playerId);
+    }
+
+    /**
+     * Send a message which contains the joker usage
+     *
+     * @param sessionId The ID of the session where the joker is used in
+     * @param playerId  The ID of the player who has used the joker
+     * @param jokerName The name of the joker used
+     */
+    public void sendJokerUsage(long sessionId, long playerId, String jokerName) {
+        sendWebsocketMessage("/joker/" + sessionId + "/send/" + playerId, jokerName);
+        System.out.println("/joker/" + sessionId + "/send/" + playerId);
+    }
+
+    /**
+     * Listen for updates regarding joker usages from other players
+     *
+     * @param handler   The function to call with the emoji sent to the session
+     * @param sessionId The ID of the session in which to listen for jokers
+     */
+    public StompSession.Subscription registerForJokerUpdates(Consumer<Joker> handler, long sessionId) {
+        System.out.println("registerForJokerUpdates done websocketsutils");
+        return registerForWebsocketUpdates(handler, Joker.class, "/joker/" + sessionId);
     }
 }

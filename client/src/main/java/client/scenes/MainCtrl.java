@@ -104,6 +104,7 @@ public class MainCtrl {
         multiplayerCtrl.registerForEmojiUpdates();
         multiplayerCtrl.loadQuestion();
         multiplayerCtrl.scanForDisconnect();
+        multiplayerCtrl.registerForJokerUpdates();
     }
 
     /**

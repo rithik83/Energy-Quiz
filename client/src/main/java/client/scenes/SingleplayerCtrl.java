@@ -31,10 +31,8 @@ public class SingleplayerCtrl extends GameCtrl {
 
     @Inject
     public SingleplayerCtrl(WebSocketsUtils webSocketsUtils, GameSessionUtils gameSessionUtils,
-                            LeaderboardUtils leaderboardUtils, QuestionUtils questionUtils, MainCtrl mainCtrl,
-                            Label jokerUsage) {
+                            LeaderboardUtils leaderboardUtils, QuestionUtils questionUtils, MainCtrl mainCtrl) {
         super(webSocketsUtils, gameSessionUtils, leaderboardUtils, questionUtils, mainCtrl);
-        this.jokerUsage = jokerUsage;
     }
 
     /**
@@ -117,11 +115,22 @@ public class SingleplayerCtrl extends GameCtrl {
         allPlayers.setItems(data);
     }
 
+    /**
+     * the method to update score for single player mode
+     * @param playerId    the id of the player
+     * @param points      the points of the player
+     * @param isBestScore the flag of the best score of the player
+     */
     @Override
     public void updateScore(long playerId, int points, boolean isBestScore) {
         leaderboardUtils.updateSingleScore(playerId, points, isBestScore);
     }
 
+    /**
+     * the method to display joker usage
+     * @param playerId the id of the player who has used the joker
+     * @param jokerName the name of the joker used
+     */
     @Override
     public void displayJokerUsage(long playerId, String jokerName) {
         String username = leaderboardUtils.getPlayerByIdInLeaderboard(playerId).getUsername();

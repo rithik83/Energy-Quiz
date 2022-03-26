@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import commons.Activity;
 import server.database.ActivityRepository;
 
-import static java.util.Objects.isNull;
 import static server.Config.isInvalid;
 import static server.Config.isNullOrEmpty;
 

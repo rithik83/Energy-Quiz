@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import commons.Activity;
 import server.database.ActivityRepository;
 
+import static java.util.Objects.isNull;
 import static server.Config.isInvalid;
 import static server.Config.isNullOrEmpty;
 
@@ -40,13 +41,12 @@ public class ActivityController {
      * @return true if any of the attributes is null or empty
      */
     private boolean invalidActivity(Activity activity) {
-        if (isNullOrEmpty(activity.title) || isNullOrEmpty(activity.consumption_in_wh)
+        if (isNullOrEmpty(activity.title) || activity.consumption_in_wh == 0L
                 || isNullOrEmpty(activity.image_path) || isNullOrEmpty(activity.source)) {
             return true;
         }
 
-        return !(activity.title.matches("([a-zA-Z0-9-]+ ){2,}\\w(.*)") &&
-                activity.consumption_in_wh.matches("[0-9]+"));
+        return !(activity.title.matches("([a-zA-Z0-9-]+ ){2,}\\w(.*)"));
     }
 
     /**

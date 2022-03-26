@@ -32,8 +32,8 @@ public class ActivityControllerTest {
 
     @Test
     public void cannotAddDuplTitleActivityTest() {
-        Activity activity = new Activity("test", "7", "ab", "cd");
-        Activity duplTitled = new Activity("test", "1000", "ef", "gh");
+        Activity activity = new Activity("test", 7L, "ab", "cd");
+        Activity duplTitled = new Activity("test", 1000L, "ef", "gh");
         sut.addActivity(activity);
         var actual = sut.addActivity(duplTitled);
         assertEquals(BAD_REQUEST, actual.getStatusCode());
@@ -112,7 +112,7 @@ public class ActivityControllerTest {
 
     private static Activity getActivity(String str) {
         return (str == null)
-                ? new Activity(null, null, null, null)
-                : new Activity(str + " " + str + " " + str, "42", str, str);
+                ? new Activity(null, 0, null, null)
+                : new Activity(str + " " + str + " " + str, 42L, str, str);
     }
 }
